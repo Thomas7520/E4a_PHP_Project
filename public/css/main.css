@@ -1,0 +1,110 @@
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #f0f4ff, #f4f6fa);
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+
+h1, h2 {
+    text-align: center;
+    color: #2c3e50;
+}
+
+.cards-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px 0;
+}
+
+.perso-card-vertical {
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    overflow: hidden;
+    width: 220px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.perso-card-vertical:hover {
+    transform: translateY(-10px) scale(1.03);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+}
+
+.perso-img-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.perso-img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.perso-card-vertical:hover .perso-img {
+    transform: scale(1.05);
+    filter: brightness(1.15) saturate(1.2);
+}
+
+/* Badge rareté */
+.rarity-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: gold;
+    color: #fff;
+    padding: 5px 8px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 0.9em;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+/* Badge élément */
+.element-badge {
+    background: #3498db; /* couleur par défaut */
+    color: #fff;
+    padding: 3px 6px;
+    border-radius: 6px;
+    font-size: 0.8em;
+    font-weight: bold;
+}
+
+
+
+.perso-info {
+    padding: 12px;
+    text-align: center;
+}
+
+.perso-info h3 {
+    margin: 8px 0 6px;
+    font-size: 1.2em;
+    color: #34495e;
+}
+
+.perso-info p {
+    margin: 4px 0;
+    font-size: 0.9em;
+}
+
+.perso-info strong {
+    color: #2c3e50;
+}
+
+/* --- Responsive --- */
+@media (max-width: 600px) {
+    .perso-card-vertical {
+        width: 100%;
+        max-width: 300px;
+    }
+}

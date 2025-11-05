@@ -3,10 +3,9 @@
 namespace Controllers;
 
 use League\Plates\Engine;
-use Models\PersonnageDAO;
 use Services\PersonnageService;
 
-class MainController
+class PersonnageController
 {
     private Engine $templates;
     private PersonnageService $service;
@@ -15,22 +14,15 @@ class MainController
     {
         $this->templates = new Engine(__DIR__ . '/../Views');
         $this->service = new PersonnageService();
-
-
     }
 
     public function index(): void
     {
-        $dao = new PersonnageDAO();
+        $allPersonnages = $this->service->getAllPersonnages();
 
-        $all = $dao->getAll();
-
-        $listPersonnage = PersonnageService::hydrateAll($all);
 
         echo $this->templates->render('home', [
-            'listPersonnage' => $listPersonnage,
-            'gameName' => 'Genshin Impact'
+            'allPersonnages' => $allPersonnages,
         ]);
-
     }
 }

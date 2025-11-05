@@ -1,41 +1,42 @@
 <?php
 namespace Models;
 
-use Config\Config;
 use Exception;
 use PDO;
-use PDOException;
 
 class BasePDODAO {
-    private static $db = null;
+    protected static ?array $param = null;
+    protected ?PDO $db = null;
 
-    protected static function getDB() {
-        if (self::$db === null) {
-            try {
-                $dsn  = Config::get('dsn');
-                $user = Config::get('user');
-                $pass = Config::get('pass');
-
-                self::$db = new PDO($dsn, $user, $pass);
-                self::$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                self::$db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-            } catch (PDOException $e) {
-                throw new Exception("Erreur de connexion à la base de données : " . $e->getMessage());
+    protected static function getParameter(): array {
+        if (self::$param === null) {
+            $cheminFichier = __DIR__ . '/../Config/dev.ini';
+            if (!file_exists($cheminFichier)) {
+                $cheminFichier = __DIR__ . '/../Config/dev_sample.ini';
             }
+            if (!file_exists($cheminFichier)) {
+                throw new Exception("Aucun fichier de configuration trouvé");
+            }
+            self::$param = parse_ini_file($cheminFichier);
         }
-        return self::$db;
+        return self::$param;
     }
 
-    /**
-     * Exécute une requête SQL.
-     * @param string $sql La requête SQL
-     * @param array|null $params Paramètres pour la requête préparée
-     * @return PDOStatement|false
-     */
-    protected static function execRequest(string $sql, array $params = null) {
-        $db = self::getDB();
+    protected function getDB(): PDO {
+        if ($this->db === null) {
+            $params = self::getParameter();
+            $this->db = new PDO(
+                $params['dsn'],
+                $params['user'],
+                $params['pass']
+            );
+            $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        }
+        return $this->db;
+    }
 
-        $stmt = $db->prepare($sql);
+    protected function execRequest(string $sql, ?array $params = null) {
+        $stmt = $this->getDB()->prepare($sql);
         $stmt->execute($params ?? []);
         return $stmt;
     }
