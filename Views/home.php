@@ -26,7 +26,7 @@ $this->layout('template', ['title' => 'TP Mihoyo']);
                 </div>
 
                 <div class="perso-actions">
-                    <a href="./index.php?action=edit-perso&id=<?= $this->e($perso->getId()) ?>"
+                    <a href="./index.php?action=add-perso&id=<?= $this->e($perso->getId()) ?>"
                        class="btn btn-edit"
                        title="Modifier <?= $this->e($perso->getName()) ?>">
                         <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
