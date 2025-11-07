@@ -45,7 +45,7 @@ h1, h2 {
 
 .perso-img {
     width: 100%;
-    height: 240px;
+    height: 300px;
     object-fit: cover;
     transition: transform 0.3s ease, filter 0.3s ease;
 }
@@ -55,7 +55,6 @@ h1, h2 {
     filter: brightness(1.15) saturate(1.2);
 }
 
-/* Badge rareté */
 .rarity-badge {
     position: absolute;
     top: 10px;
@@ -69,9 +68,8 @@ h1, h2 {
     box-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 
-/* Badge élément */
 .element-badge {
-    background: #3498db; /* couleur par défaut */
+    background: #3498db;
     color: #fff;
     padding: 3px 6px;
     border-radius: 6px;
@@ -101,10 +99,111 @@ h1, h2 {
     color: #2c3e50;
 }
 
-/* --- Responsive --- */
+.perso-actions {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    padding: 10px 12px 16px;
+    border-top: 1px solid #f0f0f0;
+    background-color: #fafafa;
+    box-sizing: border-box;
+    gap: 10px;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    font-size: 0.95rem;
+    padding: 8px 10px;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    color: #fff;
+}
+
+.btn .icon {
+    display: inline-block;
+    vertical-align: middle;
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+}
+
+.btn-edit {
+    background-color: #3498db;
+}
+.btn-edit:hover, .btn-edit:focus {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(41,128,185,0.18);
+}
+
+.btn-delete {
+    background-color: #e74c3c;
+}
+.btn-delete:hover, .btn-delete:focus {
+    background-color: #c0392b;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(192,57,43,0.18);
+}
+
+.btn:focus {
+    outline: 3px solid rgba(241,196,15,0.2);
+    outline-offset: 2px;
+}
+
+@media (max-width: 600px) {
+    .perso-actions {
+        gap: 8px;
+        padding: 12px;
+    }
+    .btn {
+        flex: 1;
+        justify-content: center;
+    }
+}
+
+
+.perso-actions a {
+    text-decoration: none;
+    font-size: 0.9em;
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-edit {
+    background-color: #3498db;
+    color: #fff;
+}
+
+.btn-edit:hover {
+    background-color: #2980b9;
+    transform: scale(1.05);
+}
+
+.btn-delete {
+    background-color: #e74c3c;
+    color: #fff;
+}
+
+.btn-delete:hover {
+    background-color: #c0392b;
+    transform: scale(1.05);
+}
+
+
 @media (max-width: 600px) {
     .perso-card-vertical {
         width: 100%;
         max-width: 300px;
     }
 }
+
+
+
+
