@@ -3,7 +3,7 @@
 namespace Routes;
 
 use Controllers\MainController;
-use Controllers\PersoController;
+use Controllers\PersonnageController;
 use Exception;
 
 class Router
@@ -20,7 +20,7 @@ class Router
     private function createRouteList(): void
     {
         $mainController = new MainController();
-        $persoController = new PersoController();
+        $persoController = new PersonnageController();
 
         $this->routeList = [
             'index'             => new RouteIndex($mainController),

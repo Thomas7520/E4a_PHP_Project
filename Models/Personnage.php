@@ -4,6 +4,8 @@ namespace Models;
 
 class Personnage
 {
+
+
     private ?string $id = null;
     private string $name;
     private string $element;
@@ -11,6 +13,36 @@ class Personnage
     private int $rarity;
     private ?string $origin = null;
     private string $urlImg;
+
+    /**
+     * @param string|null $id
+     * @param string $name
+     * @param string $element
+     * @param string $unitclass
+     * @param int $rarity
+     * @param string|null $origin
+     * @param string $urlImg
+     */
+    public function __construct(
+        ?string $id = null,
+        string $name = '',
+        string $element = '',
+        string $unitclass = '',
+        int $rarity = 1,
+        ?string $origin = null,
+        string $urlImg = ''
+    ) {
+        $this->id = $id;
+        $this->name = $name;
+        $this->element = $element;
+        $this->unitclass = $unitclass;
+        $this->rarity = $rarity;
+        $this->origin = $origin;
+        $this->urlImg = $urlImg;
+    }
+
+
+
 
     public function getId(): ?string { return $this->id; }
     public function getName(): string { return $this->name; }

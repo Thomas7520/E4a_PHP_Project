@@ -20,9 +20,8 @@ class MainController
 
     public function index(): void
     {
-        $dao = new PersonnageDAO();
-        $all = $dao->getAll();
-        $listPersonnage = PersonnageService::hydrateAll($all);
+
+        $listPersonnage = PersonnageService::hydrateAll($this->service->getDao()->getAll());
 
         echo $this->templates->render('home', [
             'listPersonnage' => $listPersonnage,

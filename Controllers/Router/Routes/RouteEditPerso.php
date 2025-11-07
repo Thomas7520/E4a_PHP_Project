@@ -2,13 +2,13 @@
 
 namespace Routes;
 
-use Controllers\PersoController;
+use Controllers\PersonnageController;
 
 class RouteEditPerso extends Route
 {
-    private PersoController $controller;
+    private PersonnageController $controller;
 
-    public function __construct(PersoController $controller)
+    public function __construct(PersonnageController $controller)
     {
         parent::__construct('edit-perso');
         $this->controller = $controller;

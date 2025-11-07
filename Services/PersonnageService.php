@@ -3,9 +3,19 @@
 namespace Services;
 
 use Models\Personnage;
+use Models\PersonnageDAO;
 
 class PersonnageService
 {
+    private PersonnageDAO $dao;
+
+    public function __construct()
+    {
+
+        $this->dao = new PersonnageDAO();
+    }
+
+
     /**
      * Transforme un tableau de données brutes (issue du DAO)
      * en une instance de Personnage.
@@ -43,5 +53,13 @@ class PersonnageService
         }
 
         return $result;
+    }
+
+    /**
+     * @return PersonnageDAO
+     */
+    public function getDao(): PersonnageDAO
+    {
+        return $this->dao;
     }
 }

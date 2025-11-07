@@ -2,13 +2,13 @@
 
 namespace Routes;
 
-use Controllers\PersoController;
+use Controllers\PersonnageController;
 
 class RouteAddElement extends Route
 {
-    private PersoController $controller;
+    private PersonnageController $controller;
 
-    public function __construct(PersoController $controller)
+    public function __construct(PersonnageController $controller)
     {
         parent::__construct('add-perso-element');
         $this->controller = $controller;

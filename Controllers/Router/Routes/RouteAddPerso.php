@@ -2,13 +2,13 @@
 
 namespace Routes;
 
-use Controllers\PersoController;
+use Controllers\PersonnageController;
 
 class RouteAddPerso extends Route
 {
-    private PersoController $controller;
+    private PersonnageController $controller;
 
-    public function __construct(PersoController $controller)
+    public function __construct(PersonnageController $controller)
     {
         parent::__construct('add-perso');
         $this->controller = $controller;
@@ -16,11 +16,11 @@ class RouteAddPerso extends Route
 
     public function get(array $params = []): void
     {
-        $this->controller->displayAddPerso($this-> getParam($params, "id"));
+        $this->controller->displayAddPerso($params);
     }
 
     public function post(array $params = []): void
     {
-        // futur traitement POST
+        $this->controller->displayAddPerso($params);
     }
 }
