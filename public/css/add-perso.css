@@ -1,0 +1,102 @@
+/* Container centré avec tous les éléments alignés au centre */
+.form-container {
+    max-width: 520px;
+    margin: 30px auto;
+    background: #ffffff;
+    padding: 28px 34px;
+    border-radius: 14px;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.12);
+    border: 2px solid rgba(44,62,80,0.15);
+    animation: fadeIn 0.5s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* centre tous les enfants horizontalement */
+    text-align: center;  /* centre le texte des labels et h1 */
+}
+
+form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* centre les inputs et labels */
+}
+
+/* Labels centrés */
+form label {
+    display: block;
+    margin: 14px 0 6px;
+    font-weight: 600;
+    color: #2c3e50;
+    text-align: center;
+}
+
+/* Inputs centrés et texte centré */
+form input[type="text"],
+form input[type="number"] {
+    width: 90%; /* réduit un peu la largeur pour l'esthétique */
+    padding: 11px 12px;
+    border-radius: 10px;
+    border: 2px solid rgba(44,62,80,0.25);
+    background: #f6f8fa;
+    font-size: 1rem;
+    color: #2c3e50;
+    text-align: center; /* centre le texte à l'intérieur */
+    transition: border 0.25s ease, box-shadow 0.25s ease, background 0.2s ease;
+}
+
+form input:focus {
+    border-color: #2c3e50;
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(44,62,80,0.25);
+    outline: none;
+}
+
+/* Bouton */
+form button {
+    margin-top: 22px;
+    width: 50%; /* bouton plus petit et centré */
+    padding: 13px 18px;
+    border: none;
+    background: #2c3e50;
+    color: #fff;
+    font-size: 1.05rem;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 12px rgba(44,62,80,0.35);
+}
+
+form button:hover {
+    background: #34495e;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(44,62,80,0.35);
+}
+
+form button:active {
+    transform: translateY(0);
+}
+
+/* Animation du container */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .form-container {
+        padding: 22px;
+    }
+
+    form input[type="text"],
+    form input[type="number"] {
+        width: 100%;
+    }
+
+    form button {
+        width: 80%;
+        padding: 14px;
+        font-size: 1rem;
+    }
+}

@@ -10,6 +10,7 @@ use Helpers\Toast;
     <link rel="stylesheet" href="../public/css/main.css"/>
     <link rel="stylesheet" href="../public/css/template.css"/>
     <link rel="stylesheet" href="../public/css/toast.css"/>
+    <link rel="stylesheet" href="../public/css/add-perso.css"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= $this->e($title) ?></title>
 </head>

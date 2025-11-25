@@ -49,4 +49,11 @@ class MainController
             'title' => 'Connexion'
         ]);
     }
+
+    public function notFound(): void
+    {
+        echo $this->templates->render('not-found', [
+            'title' => 'Page non trouvée'
+        ]);
+    }
 }
