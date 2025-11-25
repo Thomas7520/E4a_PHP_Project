@@ -3,8 +3,8 @@
 namespace Controllers;
 
 use League\Plates\Engine;
-use Models\PersonnageDAO;
 use Services\PersonnageService;
+use function Helpers\toast;
 
 class MainController
 {
@@ -12,14 +12,19 @@ class MainController
     private PersonnageService $service;
 
 
+
     public function __construct()
     {
+
         $this->templates = new Engine(__DIR__ . '/../Views');
         $this->service = new PersonnageService();
     }
 
-    public function index(): void
+    public function index(string $msg='', string $type='success'): void
     {
+
+        if($msg != '')
+            toast($msg, $type);
 
         $listPersonnage = PersonnageService::hydrateAll($this->service->getDao()->getAll());
 
@@ -27,6 +32,8 @@ class MainController
             'listPersonnage' => $listPersonnage,
             'gameName' => 'Genshin Impact'
         ]);
+
+
     }
 
     public function logs(): void

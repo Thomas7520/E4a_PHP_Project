@@ -3,6 +3,7 @@
 namespace Controllers;
 
 use League\Plates\Engine;
+use Models\Personnage;
 use Models\PersonnageDAO;
 use Services\PersonnageService;
 
@@ -12,32 +13,32 @@ class PersonnageController
 
     private PersonnageService $service;
 
+    private MainController $mainController;
 
-    public function __construct()
+    public function __construct(MainController $mainController)
     {
+        $this->mainController = $mainController;
         $this->templates = new Engine(__DIR__ . '/../Views');
         $this->service = new PersonnageService();
 
 
     }
 
-    public function index(): void
-    {
-        $allPersonnages = $this->service->getDao()->getAll();
 
-
-        echo $this->templates->render('home', [
-            'allPersonnages' => $allPersonnages,
-        ]);
-    }
 
     public function displayAddPerso(array $data = []): void
     {
-        // Déterminer si c'est un POST
-        $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
-        $id = $data['id'] ?? '';
+        $id = $data['id'] ?? null;
+        $perso = $id ? PersonnageService::hydrate($this->service->getDao()->getByID($id)) : new Personnage();
 
-        if ($method === 'POST') {
+        echo $this->templates->render('add-perso', [
+            'title' => $id ? 'Éditer un personnage' : 'Ajouter un personnage',
+            'perso' => $perso
+        ]);
+    }
+
+    public function addPerso(array $data = []): void
+    {
             // Récupérer les données du formulaire
             $id = $data['id'] ?? null;
             $name = $data['name'] ?? '';
@@ -48,6 +49,7 @@ class PersonnageController
             $urlImg = $data['urlImg'] ?? '';
 
             if ($id) {
+
                 // Edition
                 $perso = PersonnageService::hydrate($this->service->getDao()->getByID($id));
                 $perso->setName($name);
@@ -60,24 +62,12 @@ class PersonnageController
                 $msg = "Personnage mis à jour !";
             } else {
                 // Création
-                $perso = new \Models\Personnage("randomid", $name, $element, $rarity, $unitclass, $origin, $urlImg);
+                $perso = new Personnage(uniqid(), $name, $element, $unitclass, $rarity, $origin, $urlImg);
                 $this->service->getDao()->insert($perso);
                 $msg = "Personnage ajouté !";
             }
 
-            header("Location: index.php?action=index&msg=" . urlencode($msg));
-            exit;
-        }
-
-        // GET : afficher le formulaire
-        $perso = $id ? PersonnageService::hydrate($this->service->getDao()->getByID($id)) : null;
-
-        echo $perso;
-
-        echo $this->templates->render('add-perso', [
-            'title' => $id ? 'Éditer un personnage' : 'Ajouter un personnage',
-            'perso' => $perso
-        ]);
+            $this->mainController->index($msg);
     }
 
 
@@ -93,10 +83,13 @@ class PersonnageController
 
     public function deletePerso(string $id): void
     {
-        $this->service->delete($id);
+        $result = $this->service->getDao()->delete($id);
 
-        header('Location: index.php');
-        exit;
+        if($result) {
+            $this->mainController->index("Personnage supprimé avec succès");
+        } else {
+            $this->mainController->index("Le personnage n'existe pas", "error");
+        }
     }
 
 }

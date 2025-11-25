@@ -16,11 +16,12 @@ class RouteAddPerso extends Route
 
     public function get(array $params = []): void
     {
+
         $this->controller->displayAddPerso($params);
     }
 
     public function post(array $params = []): void
     {
-        $this->controller->displayAddPerso($params);
+        $this->controller->addPerso($params);
     }
 }

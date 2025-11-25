@@ -20,7 +20,7 @@ class Router
     private function createRouteList(): void
     {
         $mainController = new MainController();
-        $persoController = new PersonnageController();
+        $persoController = new PersonnageController($mainController);
 
         $this->routeList = [
             'index'             => new RouteIndex($mainController),
@@ -28,8 +28,8 @@ class Router
             'add-perso-element' => new RouteAddElement($persoController),
             'logs'              => new RouteLogs($mainController),
             'login'             => new RouteLogin($mainController),
-            'delete-perso'       => new RouteIndex($mainController), /* Pour le moment on met par défaut retour main page */
-            'update-perso'       => new RouteIndex($mainController), /* Pour le moment on met par défaut retour main page */
+            'delete-perso'       => new RouteDelPerso($persoController),
+            'update-perso'       => new RouteAddPerso($persoController),
         ];
     }
 

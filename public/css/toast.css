@@ -1,0 +1,141 @@
+/* --- Conteneur global (En bas à droite) --- */
+.toast-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 15px;
+}
+
+/* --- Style de base du Toast --- */
+.toast {
+    position: relative;
+    min-width: 300px;
+    max-width: 400px;
+    padding: 16px 20px 16px 55px;
+    background: #ffffff;
+    color: #4a4a4a;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 15px;
+    line-height: 1.4;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    overflow: hidden;
+    pointer-events: auto;
+
+    animation: slideInLeftFadeOut 5s forwards cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+.toast::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 5px;
+    width: 100%;
+    transform-origin: left;
+    opacity: 0.7;
+
+    animation: progressBar 3.9s linear forwards;
+}
+
+/* --- Icône automatique --- */
+.toast::before {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 22px;
+}
+
+/* --- Variante : SUCCESS --- */
+.toast-success {
+    border-left: none;
+}
+.toast-success::before {
+    content: '✔';
+    color: #2ecc71;
+    background: rgba(46, 204, 113, 0.1); /* Petit rond de fond derrière l'icone */
+    width: 30px; height: 30px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+    left: 15px; /* Ajustement position */
+}
+.toast-success::after {
+    background-color: #2ecc71;
+}
+
+/* --- Variante : ERROR --- */
+.toast-error {
+    border-left: none;
+}
+.toast-error::before {
+    content: '✖';
+    color: #e74c3c;
+    background: rgba(231, 76, 60, 0.1);
+    width: 30px; height: 30px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+    left: 15px;
+}
+.toast-error::after {
+    background-color: #e74c3c;
+}
+
+/* ---------------- ANIMATIONS SYNCHRONISÉES ---------------- */
+
+/* ---------------- ANIMATIONS CORRIGÉES ---------------- */
+
+/* Mouvement du toast */
+@keyframes slideInLeftFadeOut {
+    /* PHASE 1 : ENTRÉE (0% à 10%) */
+    0% {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    10% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    /* PHASE 2 : LECTURE (10% à 90%)
+       Notez qu'on attend jusqu'à 90% avant de bouger,
+       alors que la barre finit à 80% (voir plus bas) */
+    90% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    /* PHASE 3 : SORTIE (90% à 100%) */
+    100% {
+        opacity: 0;
+        transform: translateX(100%);
+        visibility: hidden;
+    }
+}
+
+/* Mouvement de la barre de temps */
+@keyframes progressBar {
+    /* PHASE 1 : ENTRÉE (Barre pleine) */
+    0% {
+        width: 100%;
+    }
+    10% {
+        width: 100%;
+    }
+
+    /* PHASE 2 : VIDAGE (10% à 80%)
+       La barre arrive à 0% PLUS TÔT que le départ du toast.
+       Cela laisse 10% du temps (0.5s) avec une barre vide visible. */
+    80% {
+        width: 0%;
+    }
+
+    /* PHASE 3 : RESTE VIDE JUSQU'A LA FIN */
+    100% {
+        width: 0%;
+    }
+}

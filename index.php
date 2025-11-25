@@ -3,7 +3,9 @@
 use Helpers\Psr4AutoloaderClass;
 
 require_once __DIR__ . '/Helpers/Psr4AutoloaderClass.php';
+require_once __DIR__ . '/Helpers/Toast.php';
 require_once __DIR__ . '/Controllers/Router/Router.php';
+
 
 $loader = new Psr4AutoloaderClass();
 

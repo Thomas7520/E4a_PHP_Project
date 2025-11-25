@@ -36,10 +36,9 @@ $this->layout('template', ['title' => 'TP Mihoyo']);
                         <span>Éditer</span>
                     </a>
 
-                    <a href="./index.php?action=del-perso&id=<?= $this->e($perso->getId()) ?>"
+                    <a href="./index.php?action=delete-perso&id=<?= $this->e($perso->getId()) ?>"
                        class="btn btn-delete"
                        title="Supprimer <?= $this->e($perso->getName()) ?>"
-                       onclick="return confirm('Supprimer <?= addslashes($this->e($perso->getName())) ?> ?')">
                         <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M9 3h6l1 2h5v2H4V5h5l1-2z"/>
                             <path d="M6 9h12l-1 11H7L6 9z"/>

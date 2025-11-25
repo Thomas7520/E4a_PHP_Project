@@ -2,7 +2,7 @@
 <project version="4">
   <component name="MessDetector">
     <phpmd_settings>
-      <phpmd_by_interpreter asDefaultInterpreter="true" interpreter_id="44943331-4eb9-4b01-9787-91773265a950" timeout="30000" />
+      <phpmd_by_interpreter asDefaultInterpreter="true" interpreter_id="932b9219-5742-4d54-9501-504cf4a4c481" timeout="30000" />
     </phpmd_settings>
   </component>
   <component name="MessDetectorOptionsConfiguration">
@@ -17,10 +17,10 @@
   </component>
   <component name="PhpCodeSniffer">
     <phpcs_settings>
-      <phpcs_by_interpreter asDefaultInterpreter="true" interpreter_id="44943331-4eb9-4b01-9787-91773265a950" timeout="30000" />
+      <phpcs_by_interpreter asDefaultInterpreter="true" interpreter_id="932b9219-5742-4d54-9501-504cf4a4c481" timeout="30000" />
     </phpcs_settings>
   </component>
-  <component name="PhpProjectSharedConfiguration" php_language_level="7.4">
+  <component name="PhpProjectSharedConfiguration" php_language_level="8.5">
     <option name="suggestChangeDefaultLanguageLevel" value="false" />
   </component>
   <component name="PhpStanOptionsConfiguration">
