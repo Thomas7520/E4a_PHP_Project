@@ -2,8 +2,8 @@
 
 namespace Services;
 
-use Models\Personnage;
-use Models\PersonnageDAO;
+use Models\Personnage\Personnage;
+use Models\Personnage\PersonnageDAO;
 
 class PersonnageService
 {

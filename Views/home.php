@@ -14,15 +14,47 @@ $this->layout('template', ['title' => 'TP Mihoyo']);
                     <img src="<?= $this->e($perso->getUrlImg()) ?>"
                          alt="<?= $this->e($perso->getName()) ?>"
                          class="perso-img">
-                    <span class="rarity-badge"><?= str_repeat("⭐", $perso->getRarity()) ?></span>
+
+                    <div class="rarity-stars">
+                        <?php for ($i = 0; $i < $perso->getRarity(); $i++): ?>
+                            <svg class="star" viewBox="0 0 24 24" fill="gold" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                            </svg>
+                        <?php endfor; ?>
+                    </div>
                 </div>
+
 
                 <div class="perso-info">
                     <h3><?= $this->e($perso->getName()) ?></h3>
-                    <p><strong>Élément :</strong>
-                        <span class="element-badge"><?= $this->e($perso->getElement()) ?></span></p>
-                    <p><strong>Classe :</strong> <?= $this->e($perso->getUnitclass()) ?></p>
-                    <p><strong>Origine :</strong> <?= $this->e($perso->getOrigin() ?? 'Inconnue') ?></p>
+
+                    <p>
+                        <strong>Élément :</strong>
+                        <img src="<?= $this->e($elements[$perso->getElement()]->getUrlImg()) ?>"
+                             alt="<?= $this->e($elements[$perso->getElement()]->getName()) ?>"
+                             class="icon-small"
+                             title="<?= $this->e($elements[$perso->getElement()]->getName()) ?>">
+                    </p>
+
+                    <p>
+                        <strong>Classe :</strong>
+                        <img src="<?= $this->e($unitclasses[$perso->getUnitclass()]->getUrlImg()) ?>"
+                             alt="<?= $this->e($unitclasses[$perso->getUnitclass()]->getName()) ?>"
+                             class="icon-small"
+                             title="<?= $this->e($unitclasses[$perso->getUnitclass()]->getName()) ?>">
+                    </p>
+
+                    <p>
+                        <strong>Origine :</strong>
+                        <?php if ($perso->getOrigin() && isset($origins[$perso->getOrigin()])): ?>
+                            <img src="<?= $this->e($origins[$perso->getOrigin()]->getUrlImg()) ?>"
+                                 alt="<?= $this->e($origins[$perso->getOrigin()]->getName()) ?>"
+                                 class="icon-small"
+                                 title="<?= $this->e($origins[$perso->getOrigin()]->getName()) ?>">
+                        <?php else: ?>
+                            Inconnue
+                        <?php endif; ?>
+                    </p>
                 </div>
 
                 <div class="perso-actions">
@@ -36,9 +68,9 @@ $this->layout('template', ['title' => 'TP Mihoyo']);
                         <span>Éditer</span>
                     </a>
 
-                    <a href="./index.php?action=delete-perso&id=<?= $this->e($perso->getId()) ?>"
+                    <a href="./index.php?action=del-perso&id=<?= $this->e($perso->getId()) ?>"
                        class="btn btn-delete"
-                       title="Supprimer <?= $this->e($perso->getName()) ?>"
+                       title="Supprimer <?= $this->e($perso->getName()) ?>">
                         <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M9 3h6l1 2h5v2H4V5h5l1-2z"/>
                             <path d="M6 9h12l-1 11H7L6 9z"/>

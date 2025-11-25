@@ -37,7 +37,7 @@ use Helpers\Toast;
                 </a>
             </li>
             <li>
-                <a href="./index.php?action=add-perso-element">
+                <a href="./index.php?action=add-parameter">
                     <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                         <path d="M12 2L15.09 8.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/>
                     </svg>

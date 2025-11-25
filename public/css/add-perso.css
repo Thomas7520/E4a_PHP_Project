@@ -10,18 +10,17 @@
     animation: fadeIn 0.5s ease;
     display: flex;
     flex-direction: column;
-    align-items: center; /* centre tous les enfants horizontalement */
-    text-align: center;  /* centre le texte des labels et h1 */
+    align-items: center;
+    text-align: center;
 }
 
 form {
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center; /* centre les inputs et labels */
+    align-items: center;
 }
 
-/* Labels centrés */
 form label {
     display: block;
     margin: 14px 0 6px;
@@ -30,21 +29,23 @@ form label {
     text-align: center;
 }
 
-/* Inputs centrés et texte centré */
 form input[type="text"],
-form input[type="number"] {
-    width: 90%; /* réduit un peu la largeur pour l'esthétique */
+form input[type="number"],
+form select {
+    width: 90%;
     padding: 11px 12px;
     border-radius: 10px;
     border: 2px solid rgba(44,62,80,0.25);
     background: #f6f8fa;
     font-size: 1rem;
     color: #2c3e50;
-    text-align: center; /* centre le texte à l'intérieur */
+    text-align: center;
     transition: border 0.25s ease, box-shadow 0.25s ease, background 0.2s ease;
+    appearance: none; /* supprime l’apparence native du select */
 }
 
-form input:focus {
+form input:focus,
+form select:focus {
     border-color: #2c3e50;
     background: #ffffff;
     box-shadow: 0 0 0 3px rgba(44,62,80,0.25);
@@ -54,7 +55,7 @@ form input:focus {
 /* Bouton */
 form button {
     margin-top: 22px;
-    width: 50%; /* bouton plus petit et centré */
+    width: 50%;
     padding: 13px 18px;
     border: none;
     background: #2c3e50;
@@ -90,7 +91,8 @@ form button:active {
     }
 
     form input[type="text"],
-    form input[type="number"] {
+    form input[type="number"],
+    form select {
         width: 100%;
     }
 
@@ -100,3 +102,4 @@ form button:active {
         font-size: 1rem;
     }
 }
+

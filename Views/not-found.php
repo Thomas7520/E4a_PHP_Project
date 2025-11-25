@@ -7,9 +7,7 @@ http_response_code(404);
     <meta charset="UTF-8">
     <title>Erreur 404 – Page introuvable</title>
     <style>
-        /* === Ton CSS existant réutilisé tel quel === */
 
-        /* ===== Style spécifique à la page 404 ===== */
         .error-wrapper {
             display: flex;
             flex-direction: column;

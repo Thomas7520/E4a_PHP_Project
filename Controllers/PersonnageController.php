@@ -3,15 +3,16 @@
 namespace Controllers;
 
 use League\Plates\Engine;
-use Models\Personnage;
-use Models\PersonnageDAO;
+use Models\Personnage\Personnage;
+use Services\ElementService;
+use Services\OriginService;
 use Services\PersonnageService;
+use Services\UnitClassService;
 
 class PersonnageController
 {
     private Engine $templates;
 
-    private PersonnageService $service;
 
     private MainController $mainController;
 
@@ -19,9 +20,6 @@ class PersonnageController
     {
         $this->mainController = $mainController;
         $this->templates = new Engine(__DIR__ . '/../Views');
-        $this->service = new PersonnageService();
-
-
     }
 
 
@@ -29,13 +27,22 @@ class PersonnageController
     public function displayAddPerso(array $data = []): void
     {
         $id = $data['id'] ?? null;
-        $perso = $id ? PersonnageService::hydrate($this->service->getDao()->getByID($id)) : new Personnage();
+        $perso = $id ? PersonnageService::hydrate($this->mainController->personnageService->getDao()->getByID($id)) : new Personnage();
+
+        // Récupérer les listes pour les select
+        $elements = ElementService::hydrateAll($this->mainController->elementService->getDao()->getAll());
+        $origins = OriginService::hydrateAll($this->mainController->originService->getDao()->getAll());
+        $unitclasses = UnitClassService::hydrateAll($this->mainController->classServiceService->getDao()->getAll());
 
         echo $this->templates->render('add-perso', [
             'title' => $id ? 'Éditer un personnage' : 'Ajouter un personnage',
-            'perso' => $perso
+            'perso' => $perso,
+            'elements' => $elements,
+            'origins' => $origins,
+            'unitclasses' => $unitclasses
         ]);
     }
+
 
     public function addPerso(array $data = []): void
     {
@@ -51,19 +58,19 @@ class PersonnageController
             if ($id) {
 
                 // Edition
-                $perso = PersonnageService::hydrate($this->service->getDao()->getByID($id));
+                $perso = PersonnageService::hydrate($this->mainController->personnageService->getDao()->getByID($id));
                 $perso->setName($name);
                 $perso->setElement($element);
                 $perso->setRarity($rarity);
                 $perso->setUnitclass($unitclass);
                 $perso->setOrigin($origin);
                 $perso->setUrlImg($urlImg);
-                $this->service->getDao()->update($perso);
+                $this->mainController->personnageService->getDao()->update($perso);
                 $msg = "Personnage mis à jour !";
             } else {
                 // Création
                 $perso = new Personnage(uniqid(), $name, $element, $unitclass, $rarity, $origin, $urlImg);
-                $this->service->getDao()->insert($perso);
+                $this->mainController->personnageService->getDao()->insert($perso);
                 $msg = "Personnage ajouté !";
             }
 
@@ -83,7 +90,7 @@ class PersonnageController
 
     public function deletePerso(string $id): void
     {
-        $result = $this->service->getDao()->delete($id);
+        $result = $this->mainController->personnageService->getDao()->delete($id);
 
         if($result) {
             $this->mainController->index("Personnage supprimé avec succès");

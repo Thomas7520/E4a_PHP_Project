@@ -1,26 +1,33 @@
 <?php
 
-namespace Routes;
+namespace Routes\Personnage;
 
 use Controllers\PersonnageController;
+use Routes\Route;
 
-class RouteAddElement extends Route
+class RouteDelPerso extends Route
 {
     private PersonnageController $controller;
 
     public function __construct(PersonnageController $controller)
     {
-        parent::__construct('add-perso-element');
+        parent::__construct('del-perso');
         $this->controller = $controller;
     }
 
     public function get(array $params = []): void
     {
-        $this->controller->displayAddElement();
+        $id = $this->getParam($params, 'id');
+
+        // supprimer le personnage via le service
+        $this->controller->deletePerso($id);
+
+
     }
 
     public function post(array $params = []): void
     {
-        // futur traitement POST
+        // Pas besoin ici
     }
+
 }

@@ -1,17 +1,30 @@
 <?php
 
-namespace Controllers\Router; // 1. Namespace conforme au dossier
+namespace Controllers\Router;
 
 use Controllers\MainController;
 use Controllers\PersonnageController;
+use Controllers\ParameterController;
 use Exceptions\RouteNotFoundException;
-// Tu devras importer tes classes de Routes ici (RouteIndex, RouteAddPerso, etc.)
+
+// Routes génériques
+use Routes\RouteDelParameter;
 use Routes\RouteIndex;
-use Routes\RouteAddPerso;
-use Routes\RouteAddElement;
-use Routes\RouteLogs;
 use Routes\RouteLogin;
-use Routes\RouteDelPerso;
+use Routes\RouteLogs;
+
+// Routes Personnage
+use Routes\Personnage\RouteAddPerso;
+use Routes\Personnage\RouteDelPerso;
+
+// Routes Parameter
+use Routes\Parameter\RouteAddElement;
+use Routes\Parameter\RouteAddOrigin;
+use Routes\Parameter\RouteAddUnitClass;
+use Routes\RouteAddParameter;
+
+// Routes Element / Origin / UnitClass deletion
+use Routes\RouteDelElement;
 
 class Router
 {
@@ -28,23 +41,38 @@ class Router
 
     private function createControllerList(): void
     {
+        $mainCtrl = new MainController();
+
         $this->ctrlList = [
-            'main' => new MainController(),
-            'perso' => new PersonnageController(new MainController())
+            'main'      => $mainCtrl,
+            'perso'     => new PersonnageController($mainCtrl),
+            'parameter' => new ParameterController($mainCtrl), // utilisé pour toutes les routes add-xxx
         ];
     }
 
     private function createRouteList(): void
     {
         $this->routeList = [
-            'index'             => new RouteIndex($this->ctrlList['main']),
-            'add-perso'         => new RouteAddPerso($this->ctrlList['perso']),
-            'add-perso-element' => new RouteAddElement($this->ctrlList['perso']),
-            'logs'              => new RouteLogs($this->ctrlList['main']),
-            'login'             => new RouteLogin($this->ctrlList['main']),
-            'del-perso'         => new RouteDelPerso($this->ctrlList['perso']),
-            'edit-perso'        => new RouteAddPerso($this->ctrlList['perso']),
-            'not-found'        => new RouteNotFoundException($this->ctrlList['main']),
+            'index'          => new RouteIndex($this->ctrlList['main']),
+            'login'          => new RouteLogin($this->ctrlList['main']),
+            'logs'           => new RouteLogs($this->ctrlList['main']),
+
+            // Routes Personnage
+            'add-perso'      => new RouteAddPerso($this->ctrlList['perso']),
+            'edit-perso'     => new RouteAddPerso($this->ctrlList['perso']),
+            'del-perso'      => new RouteDelPerso($this->ctrlList['perso']),
+
+            // Routes Parameter
+            'add-element'    => new RouteAddElement($this->ctrlList['parameter']),
+            'add-origin'     => new RouteAddOrigin($this->ctrlList['parameter']),
+            'add-unitclass'  => new RouteAddUnitClass($this->ctrlList['parameter']),
+            'add-parameter'  => new RouteAddParameter($this->ctrlList['parameter']),
+
+            // Routes de suppression génériques
+            'del-parameter'    => new RouteDelParameter($this->ctrlList['parameter']),
+
+            // Route fallback
+            'not-found'      => new RouteNotFoundException($this->ctrlList['main']),
         ];
     }
 
@@ -54,17 +82,7 @@ class Router
         $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 
         try {
-            // Vérification si la route existe
-            if (array_key_exists($action, $this->routeList)) {
-                $route = $this->routeList[$action];
-
-                //throw new RouteNotFoundException("La page demandée n'existe pas.");
-            } else {
-                // TODO NE MARCHE PAS A FIX
-                $route = $this->routeList["not-found"];
-
-            }
-
+            $route = $this->routeList[$action] ?? $this->routeList["not-found"];
 
             if ($method === 'POST' && !empty($post)) {
                 $route->action($post, 'POST');

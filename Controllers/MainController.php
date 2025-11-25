@@ -3,13 +3,19 @@
 namespace Controllers;
 
 use League\Plates\Engine;
+use Services\ElementService;
+use Services\OriginService;
 use Services\PersonnageService;
+use Services\UnitClassService;
 use function Helpers\toast;
 
 class MainController
 {
     private Engine $templates;
-    private PersonnageService $service;
+    public PersonnageService $personnageService;
+    public OriginService $originService;
+    public ElementService $elementService;
+    public UnitClassService $classServiceService;
 
 
 
@@ -17,7 +23,10 @@ class MainController
     {
 
         $this->templates = new Engine(__DIR__ . '/../Views');
-        $this->service = new PersonnageService();
+        $this->personnageService = new PersonnageService();
+        $this->originService = new OriginService();
+        $this->elementService = new ElementService();
+        $this->classServiceService = new UnitClassService();
     }
 
     public function index(string $msg='', string $type='success'): void
@@ -26,12 +35,35 @@ class MainController
         if($msg != '')
             toast($msg, $type);
 
-        $listPersonnage = PersonnageService::hydrateAll($this->service->getDao()->getAll());
+        $listPersonnage = PersonnageService::hydrateAll($this->personnageService->getDao()->getAll());
+        $listOrigins = OriginService::hydrateAll($this->originService->getDao()->getAll());
+        $listElements = ElementService::hydrateAll($this->elementService->getDao()->getAll());
+        $listUnitClass = UnitClassService::hydrateAll($this->classServiceService->getDao()->getAll());
+
+// Map par ID pour accès rapide en vue
+        $elementsById = [];
+        foreach ($listElements as $el) {
+            $elementsById[$el->getId()] = $el;
+        }
+
+        $originsById = [];
+        foreach ($listOrigins as $or) {
+            $originsById[$or->getId()] = $or;
+        }
+
+        $unitclassesById = [];
+        foreach ($listUnitClass as $uc) {
+            $unitclassesById[$uc->getId()] = $uc;
+        }
 
         echo $this->templates->render('home', [
             'listPersonnage' => $listPersonnage,
-            'gameName' => 'Genshin Impact'
+            'gameName' => 'Genshin Impact',
+            'elements' => $elementsById,
+            'unitclasses' => $unitclassesById,
+            'origins' => $originsById
         ]);
+
 
 
     }

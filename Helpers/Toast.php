@@ -62,6 +62,6 @@ function toast($message, $type = 'success') {
         Toast::success($message);
     }
 }
-?>
+
 
 
