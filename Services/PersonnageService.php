@@ -9,10 +9,10 @@ class PersonnageService
 {
     private PersonnageDAO $dao;
 
-    public function __construct()
+    public function __construct($logger)
     {
 
-        $this->dao = new PersonnageDAO();
+        $this->dao = new PersonnageDAO($logger);
     }
 
 

@@ -11,9 +11,9 @@ class OriginService
 {
     private OriginDAO $dao;
 
-    public function __construct()
+    public function __construct($logger)
     {
-        $this->dao = new OriginDAO();
+        $this->dao = new OriginDAO($logger);
     }
 
     public static function hydrate(array $data): Origin

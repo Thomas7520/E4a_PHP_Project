@@ -3,6 +3,7 @@
 namespace Controllers;
 
 use League\Plates\Engine;
+use Models\Logger;
 use Services\ElementService;
 use Services\OriginService;
 use Services\PersonnageService;
@@ -17,16 +18,16 @@ class MainController
     public ElementService $elementService;
     public UnitClassService $classServiceService;
 
-
+    public Logger $logger;
 
     public function __construct()
     {
-
+        $this->logger = new Logger();
         $this->templates = new Engine(__DIR__ . '/../Views');
-        $this->personnageService = new PersonnageService();
-        $this->originService = new OriginService();
-        $this->elementService = new ElementService();
-        $this->classServiceService = new UnitClassService();
+        $this->personnageService = new PersonnageService($this->logger);
+        $this->originService = new OriginService($this->logger);
+        $this->elementService = new ElementService($this->logger);
+        $this->classServiceService = new UnitClassService($this->logger);
     }
 
     public function index(string $msg='', string $type='success'): void

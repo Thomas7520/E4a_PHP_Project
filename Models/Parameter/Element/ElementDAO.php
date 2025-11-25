@@ -3,10 +3,18 @@
 namespace Models\Parameter\Element;
 
 use Models\BasePDODAO;
+use Models\Logger;
 use PDO;
 
 class ElementDAO extends BasePDODAO
 {
+    private Logger $logger;
+
+    public function __construct(Logger $logger)
+    {
+        $this->logger = $logger;
+    }
+
     public function getAll(): array
     {
         $sql = "SELECT * FROM ELEMENT";
@@ -31,8 +39,12 @@ class ElementDAO extends BasePDODAO
             $element->getUrlImg()
         ];
 
-        $stmt = $this->execRequest($sql, $params);
-        return $stmt !== false;
+        $success = $this->execRequest($sql, $params) !== false;
+
+        $this->logger->log('CREATE', 'ELEMENT', $success,
+            "id={$element->getId()} name={$element->getName()}");
+
+        return $success;
     }
 
     public function update(Element $element): bool
@@ -44,14 +56,22 @@ class ElementDAO extends BasePDODAO
             $element->getId()
         ];
 
-        $stmt = $this->execRequest($sql, $params);
-        return $stmt !== false;
+        $success = $this->execRequest($sql, $params) !== false;
+
+        $this->logger->log('UPDATE', 'ELEMENT', $success,
+            "id={$element->getId()} name={$element->getName()}");
+
+        return $success;
     }
 
     public function delete(string $id): bool
     {
         $sql = "DELETE FROM ELEMENT WHERE id = ?";
         $stmt = $this->execRequest($sql, [$id]);
-        return $stmt !== false && $stmt->rowCount() > 0;
+        $success = $stmt !== false && $stmt->rowCount() > 0;
+
+        $this->logger->log('DELETE', 'ELEMENT', $success, "id={$id}");
+
+        return $success;
     }
 }

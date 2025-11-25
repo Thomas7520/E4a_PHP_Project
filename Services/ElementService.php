@@ -11,9 +11,9 @@ class ElementService
 {
     private ElementDAO $dao;
 
-    public function __construct()
+    public function __construct($logger)
     {
-        $this->dao = new ElementDAO();
+        $this->dao = new ElementDAO($logger);
     }
 
     /**

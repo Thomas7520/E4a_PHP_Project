@@ -3,10 +3,18 @@
 namespace Models\Parameter\UnitClass;
 
 use Models\BasePDODAO;
+use Models\Logger;
 use PDO;
 
 class UnitClassDAO extends BasePDODAO
 {
+    private Logger $logger;
+
+    public function __construct(Logger $logger)
+    {
+        $this->logger = $logger;
+    }
+
     public function getAll(): array
     {
         $sql = "SELECT * FROM UNITCLASS";
@@ -31,8 +39,12 @@ class UnitClassDAO extends BasePDODAO
             $unitClass->getUrlImg()
         ];
 
-        $stmt = $this->execRequest($sql, $params);
-        return $stmt !== false;
+        $success = $this->execRequest($sql, $params) !== false;
+
+        $this->logger->log('CREATE', 'UNITCLASS', $success,
+            "id={$unitClass->getId()} name={$unitClass->getName()}");
+
+        return $success;
     }
 
     public function update(UnitClass $unitClass): bool
@@ -44,14 +56,22 @@ class UnitClassDAO extends BasePDODAO
             $unitClass->getId()
         ];
 
-        $stmt = $this->execRequest($sql, $params);
-        return $stmt !== false;
+        $success = $this->execRequest($sql, $params) !== false;
+
+        $this->logger->log('UPDATE', 'UNITCLASS', $success,
+            "id={$unitClass->getId()} name={$unitClass->getName()}");
+
+        return $success;
     }
 
     public function delete(string $id): bool
     {
         $sql = "DELETE FROM UNITCLASS WHERE id = ?";
         $stmt = $this->execRequest($sql, [$id]);
-        return $stmt !== false && $stmt->rowCount() > 0;
+        $success = $stmt !== false && $stmt->rowCount() > 0;
+
+        $this->logger->log('DELETE', 'UNITCLASS', $success, "id={$id}");
+
+        return $success;
     }
 }

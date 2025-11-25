@@ -10,9 +10,9 @@ class UnitClassService
 {
     private UnitClassDAO $dao;
 
-    public function __construct()
+    public function __construct($logger)
     {
-        $this->dao = new UnitClassDAO();
+        $this->dao = new UnitClassDAO($logger);
     }
 
     public static function hydrate(array $data): UnitClass

@@ -20,9 +20,9 @@ class ParameterController
     {
         $this->mainController = $mainController;
         $this->templates = new Engine(__DIR__ . '/../Views');
-        $this->elementService = new ElementService();
-        $this->originService = new OriginService();
-        $this->unitClassService = new UnitClassService();
+        $this->elementService = new ElementService($mainController->logger);
+        $this->originService = new OriginService($mainController->logger);
+        $this->unitClassService = new UnitClassService($mainController->logger);
     }
 
     /**

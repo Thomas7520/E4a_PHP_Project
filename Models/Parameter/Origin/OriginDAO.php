@@ -3,10 +3,18 @@
 namespace Models\Parameter\Origin;
 
 use Models\BasePDODAO;
+use Models\Logger;
 use PDO;
 
 class OriginDAO extends BasePDODAO
 {
+    private Logger $logger;
+
+    public function __construct(Logger $logger)
+    {
+        $this->logger = $logger;
+    }
+
     public function getAll(): array
     {
         $sql = "SELECT * FROM ORIGIN";
@@ -31,8 +39,12 @@ class OriginDAO extends BasePDODAO
             $origin->getUrlImg()
         ];
 
-        $stmt = $this->execRequest($sql, $params);
-        return $stmt !== false;
+        $success = $this->execRequest($sql, $params) !== false;
+
+        $this->logger->log('CREATE', 'ORIGIN', $success,
+            "id={$origin->getId()} name={$origin->getName()}");
+
+        return $success;
     }
 
     public function update(Origin $origin): bool
@@ -44,14 +56,22 @@ class OriginDAO extends BasePDODAO
             $origin->getId()
         ];
 
-        $stmt = $this->execRequest($sql, $params);
-        return $stmt !== false;
+        $success = $this->execRequest($sql, $params) !== false;
+
+        $this->logger->log('UPDATE', 'ORIGIN', $success,
+            "id={$origin->getId()} name={$origin->getName()}");
+
+        return $success;
     }
 
     public function delete(string $id): bool
     {
         $sql = "DELETE FROM ORIGIN WHERE id = ?";
         $stmt = $this->execRequest($sql, [$id]);
-        return $stmt !== false && $stmt->rowCount() > 0;
+        $success = $stmt !== false && $stmt->rowCount() > 0;
+
+        $this->logger->log('DELETE', 'ORIGIN', $success, "id={$id}");
+
+        return $success;
     }
 }

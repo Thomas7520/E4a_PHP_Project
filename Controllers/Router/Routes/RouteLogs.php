@@ -2,13 +2,13 @@
 
 namespace Routes;
 
-use Controllers\MainController;
+use Controllers\LogsController;
 
 class RouteLogs extends Route
 {
-    private MainController $controller;
+    private LogsController $controller;
 
-    public function __construct(MainController $controller)
+    public function __construct(LogsController $controller)
     {
         parent::__construct('logs');
         $this->controller = $controller;
@@ -16,7 +16,8 @@ class RouteLogs extends Route
 
     public function get(array $params = []): void
     {
-        $this->controller->logs();
+        $date = $_GET['date'] ?? null;
+        $this->controller->index($date);
     }
 
     public function post(array $params = []): void

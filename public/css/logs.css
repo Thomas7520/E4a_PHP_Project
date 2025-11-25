@@ -1,0 +1,178 @@
+:root {
+    --bg-success: #dcfce7;
+    --text-success: #166534;
+    --border-success: #22c55e;
+
+    --bg-fail: #fee2e2;
+    --text-fail: #991b1b;
+    --border-fail: #ef4444;
+
+    --bg-info: #f3f4f6;
+    --text-info: #374151;
+    --border-info: #9ca3af;
+
+    --primary-color: #3b82f6;
+}
+
+.logs-container {
+    max-width: 900px;
+    margin: 40px auto;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    animation: slideUp 0.4s ease-out;
+}
+
+/* En-tête avec Titre et Select */
+.logs-header {
+    background: #f8fafc;
+    padding: 25px 30px;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.logs-header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #1e293b;
+    font-weight: 700;
+}
+
+.select-wrapper {
+    position: relative;
+    min-width: 250px;
+}
+
+.select-wrapper select {
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 0.95rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background-color: white;
+    color: #334155;
+    cursor: pointer;
+    appearance: none;
+    transition: all 0.2s;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+}
+
+.select-wrapper select:hover {
+    border-color: var(--primary-color);
+}
+
+.select-wrapper select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.select-wrapper::after {
+    content: '▼';
+    font-size: 0.7rem;
+    color: #64748b;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.log-console {
+    padding: 20px;
+    background: #fff;
+    max-height: 600px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.log-console::-webkit-scrollbar {
+    width: 8px;
+}
+.log-console::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+.log-console::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+.log-console::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* Entrée individuelle de log */
+.log-entry {
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    border-left: 5px solid transparent;
+    transition: transform 0.1s ease;
+    word-break: break-all;
+}
+
+.log-entry:hover {
+    transform: translateX(3px);
+}
+
+.log-entry code {
+    font-family: 'Fira Code', 'Consolas', monospace;
+}
+
+/* Variantes de couleurs */
+.log-success {
+    background-color: var(--bg-success);
+    color: var(--text-success);
+    border-left-color: var(--border-success);
+}
+
+.log-fail {
+    background-color: var(--bg-fail);
+    color: var(--text-fail);
+    border-left-color: var(--border-fail);
+}
+
+.log-warning {
+    background-color: #fffbeb;
+    color: #92400e;
+    border-left-color: #f59e0b;
+}
+
+.log-info {
+    background-color: var(--bg-info);
+    color: var(--text-info);
+    border-left-color: var(--border-info);
+}
+
+/* État vide */
+.log-empty {
+    text-align: center;
+    padding: 40px;
+    color: #94a3b8;
+    font-style: italic;
+}
+
+/* Animation d'apparition */
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .logs-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .select-wrapper {
+        min-width: 100%;
+    }
+}

@@ -2,6 +2,7 @@
 
 namespace Controllers\Router;
 
+use Controllers\LogsController;
 use Controllers\MainController;
 use Controllers\PersonnageController;
 use Controllers\ParameterController;
@@ -47,6 +48,7 @@ class Router
             'main'      => $mainCtrl,
             'perso'     => new PersonnageController($mainCtrl),
             'parameter' => new ParameterController($mainCtrl), // utilisé pour toutes les routes add-xxx
+            'logs' => new LogsController($mainCtrl),
         ];
     }
 
@@ -55,7 +57,7 @@ class Router
         $this->routeList = [
             'index'          => new RouteIndex($this->ctrlList['main']),
             'login'          => new RouteLogin($this->ctrlList['main']),
-            'logs'           => new RouteLogs($this->ctrlList['main']),
+            'logs'           => new RouteLogs($this->ctrlList['logs']),
 
             // Routes Personnage
             'add-perso'      => new RouteAddPerso($this->ctrlList['perso']),
