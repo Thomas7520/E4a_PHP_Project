@@ -1,4 +1,4 @@
-# Projet Genshin DB
+# Projet Genshin DB/PHP
 
 Cette application web permet de gérer des personnages de type Genshin Impact avec des paramètres comme les éléments, les classes et les origines. Elle inclut un système d'authentification pour accéder aux pages "admin" et un système de logs pour suivre les actions effectuées.
 
@@ -102,6 +102,7 @@ pass = "votre_mot_de_passe"
 * Ajouter des éléments, classes et origines.
 * Authentification pour sécuriser l'accès aux pages admin.
 * Suivi des actions avec le système de logs.
+* Gestion de page not-found.
 
 ---
 
