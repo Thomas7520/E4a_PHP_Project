@@ -32,9 +32,8 @@ class UnitClassDAO extends BasePDODAO
 
     public function insert(UnitClass $unitClass): bool
     {
-        $sql = "INSERT INTO UNITCLASS (id, name, url_img) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO UNITCLASS (name, url_img) VALUES (?, ?)";
         $params = [
-            $unitClass->getId() ?? uniqid(),
             $unitClass->getName(),
             $unitClass->getUrlImg()
         ];

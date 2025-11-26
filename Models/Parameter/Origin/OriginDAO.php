@@ -32,9 +32,8 @@ class OriginDAO extends BasePDODAO
 
     public function insert(Origin $origin): bool
     {
-        $sql = "INSERT INTO ORIGIN (id, name, url_img) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO ORIGIN (name, url_img) VALUES (?, ?)";
         $params = [
-            $origin->getId() ?? uniqid(),
             $origin->getName(),
             $origin->getUrlImg()
         ];

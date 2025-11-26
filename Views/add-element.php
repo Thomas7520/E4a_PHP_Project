@@ -12,7 +12,7 @@
         <input type="text" name="name" value="<?= htmlspecialchars($element->getName()) ?>" required>
 
         <label>Image URL :</label>
-        <input type="text" name="img_url" value="<?= htmlspecialchars($element->getImgUrl()) ?>">
+        <input type="text" name="url_img" value="<?= htmlspecialchars($element->getUrlImg()) ?>">
 
         <button type="submit"><?= $element->getId() ? 'Mettre à jour' : 'Ajouter' ?></button>
     </form>

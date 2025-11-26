@@ -32,9 +32,8 @@ class ElementDAO extends BasePDODAO
 
     public function insert(Element $element): bool
     {
-        $sql = "INSERT INTO ELEMENT (id, name, url_img) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO ELEMENT (name, url_img) VALUES (?, ?)";
         $params = [
-            $element->getId() ?? uniqid(),
             $element->getName(),
             $element->getUrlImg()
         ];

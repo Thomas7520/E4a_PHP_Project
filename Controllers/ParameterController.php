@@ -69,7 +69,9 @@ class ParameterController
             $msg = "$type mis à jour !";
         } else {
             $className = $service->getEntityClass();
-            $param = new $className(uniqid(), $name, $imgUrl);
+
+            $param = new $className(-1, $name, $imgUrl);
+
             $service->getDao()->insert($param);
             $msg = "$type ajouté !";
         }
