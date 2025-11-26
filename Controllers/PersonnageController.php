@@ -52,11 +52,12 @@ class PersonnageController
             $element = $data['element'] ?? '';
             $rarity = (int)($data['rarity'] ?? 1);
             $unitclass = $data['unitclass'] ?? '';
-            $origin = $data['origin'] ?? '';
+            $origin = isset($data['origin']) && $data['origin'] !== ''
+                ? (int)$data['origin']
+                : null;
             $urlImg = $data['urlImg'] ?? '';
 
             if ($id) {
-
                 // Edition
                 $perso = PersonnageService::hydrate($this->mainController->personnageService->getDao()->getByID($id));
                 $perso->setName($name);
@@ -69,7 +70,7 @@ class PersonnageController
                 $msg = "Personnage mis à jour !";
             } else {
                 // Création
-                $perso = new Personnage(uniqid(), $name, $element, $unitclass, $rarity, $origin, $urlImg);
+                $perso = new Personnage(uniqid(), $name, $element, $unitclass, $origin, $rarity, $urlImg);
                 $this->mainController->personnageService->getDao()->insert($perso);
                 $msg = "Personnage ajouté !";
             }
