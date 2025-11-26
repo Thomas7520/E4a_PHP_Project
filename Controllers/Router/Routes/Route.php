@@ -2,13 +2,20 @@
 
 namespace Routes;
 
+/**
+ * Abstract base class for all routes.
+ *
+ * Provides basic route functionality such as handling GET/POST actions
+ * and retrieving parameters from request arrays.
+ */
 abstract class Route
 {
     protected string $name;
 
     /**
-     * Constructeur de la route
-     * @param string $name Nom de l'action (ex: 'index', 'add-perso')
+     * Constructor for the route.
+     *
+     * @param string $name Name of the action (e.g., 'index', 'add-perso').
      */
     public function __construct(string $name)
     {
@@ -16,9 +23,10 @@ abstract class Route
     }
 
     /**
-     * Appelle la méthode get() ou post() selon le type de requête
-     * @param array $params Paramètres GET ou POST
-     * @param string $method 'GET' ou 'POST'
+     * Executes the appropriate method based on the request type.
+     *
+     * @param array $params Parameters from GET or POST.
+     * @param string $method Request method, either 'GET' or 'POST'.
      */
     public function action(array $params = [], string $method = 'GET'): void
     {
@@ -30,34 +38,41 @@ abstract class Route
     }
 
     /**
-     * Récupère un paramètre dans un tableau (ex: $_GET, $_POST)
-     * @param array $array Tableau de paramètres
-     * @param string $paramName Nom du paramètre
-     * @param bool $canBeEmpty Autoriser un paramètre vide
-     * @return mixed
-     * @throws \Exception
+     * Retrieves a parameter from an array (e.g., $_GET, $_POST).
+     *
+     * @param array $array Array containing parameters.
+     * @param string $paramName Name of the parameter to retrieve.
+     * @param bool $canBeEmpty Whether the parameter can be empty.
+     * @return mixed The value of the parameter.
+     * @throws \Exception If the parameter is missing or empty when not allowed.
      */
     protected function getParam(array $array, string $paramName, bool $canBeEmpty = true)
     {
         if (isset($array[$paramName])) {
             if (!$canBeEmpty && empty($array[$paramName])) {
-                throw new \Exception("Paramètre '$paramName' vide");
+                throw new \Exception("Parameter '$paramName' is empty");
             }
             return $array[$paramName];
         }
 
-        throw new \Exception("Paramètre '$paramName' absent");
+        throw new \Exception("Parameter '$paramName' is missing");
     }
 
     /**
-     * Méthode à implémenter pour gérer la requête GET
-     * @param array $params
+     * Method to handle GET requests.
+     *
+     * Must be implemented by subclasses.
+     *
+     * @param array $params Parameters from the GET request.
      */
     abstract public function get(array $params = []): void;
 
     /**
-     * Méthode à implémenter pour gérer la requête POST
-     * @param array $params
+     * Method to handle POST requests.
+     *
+     * Must be implemented by subclasses.
+     *
+     * @param array $params Parameters from the POST request.
      */
     abstract public function post(array $params = []): void;
 }

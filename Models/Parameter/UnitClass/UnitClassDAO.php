@@ -6,6 +6,10 @@ use Models\BasePDODAO;
 use Models\Logger;
 use PDO;
 
+/**
+ * Data Access Object for UnitClass entities.
+ * Handles CRUD operations with logging.
+ */
 class UnitClassDAO extends BasePDODAO
 {
     private Logger $logger;
@@ -15,6 +19,11 @@ class UnitClassDAO extends BasePDODAO
         $this->logger = $logger;
     }
 
+    /**
+     * Retrieve all unit classes from the database.
+     *
+     * @return array List of unit classes as associative arrays.
+     */
     public function getAll(): array
     {
         $sql = "SELECT * FROM UNITCLASS";
@@ -22,6 +31,12 @@ class UnitClassDAO extends BasePDODAO
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Retrieve a unit class by its ID.
+     *
+     * @param string $id UnitClass ID.
+     * @return array|null UnitClass data or null if not found.
+     */
     public function getByID(string $id): ?array
     {
         $sql = "SELECT * FROM UNITCLASS WHERE id = ?";
@@ -30,6 +45,12 @@ class UnitClassDAO extends BasePDODAO
         return $data ?: null;
     }
 
+    /**
+     * Insert a new unit class into the database.
+     *
+     * @param UnitClass $unitClass UnitClass to insert.
+     * @return bool True on success, false on failure.
+     */
     public function insert(UnitClass $unitClass): bool
     {
         $sql = "INSERT INTO UNITCLASS (name, url_img) VALUES (?, ?)";
@@ -46,6 +67,12 @@ class UnitClassDAO extends BasePDODAO
         return $success;
     }
 
+    /**
+     * Update an existing unit class in the database.
+     *
+     * @param UnitClass $unitClass UnitClass to update.
+     * @return bool True on success, false on failure.
+     */
     public function update(UnitClass $unitClass): bool
     {
         $sql = "UPDATE UNITCLASS SET name = ?, url_img = ? WHERE id = ?";
@@ -63,6 +90,12 @@ class UnitClassDAO extends BasePDODAO
         return $success;
     }
 
+    /**
+     * Delete a unit class from the database by ID.
+     *
+     * @param string $id UnitClass ID.
+     * @return bool True if deleted successfully, false otherwise.
+     */
     public function delete(string $id): bool
     {
         $sql = "DELETE FROM UNITCLASS WHERE id = ?";

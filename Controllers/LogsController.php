@@ -4,12 +4,21 @@ namespace Controllers;
 
 use League\Plates\Engine;
 
+/**
+ * Controller to handle application logs.
+ *
+ * Manages reading log files and writing new log entries.
+ */
 class LogsController
 {
     private string $logDir;
-
     private Engine $templates;
 
+    /**
+     * Constructor.
+     *
+     * @param MainController $mainController Main controller, used for potential redirections or views.
+     */
     public function __construct(MainController $mainController)
     {
         $this->templates = new Engine(__DIR__ . '/../Views');
@@ -20,7 +29,9 @@ class LogsController
     }
 
     /**
-     * Affiche la liste des fichiers et le contenu d'un mois sélectionné
+     * Display the list of log files and the content of a selected month.
+     *
+     * @param string|null $date Optional date in "MM-YYYY" format to filter logs.
      */
     public function index(?string $date = null): void
     {
@@ -35,7 +46,7 @@ class LogsController
             }
         }
 
-        krsort($logs); // du plus récent au plus ancien
+        krsort($logs); // sort from most recent to oldest
 
         $selectedFile = null;
         $logContent = [];
@@ -52,7 +63,12 @@ class LogsController
     }
 
     /**
-     * Enregistre un log
+     * Write a log entry to the current month's log file.
+     *
+     * @param string $action Action performed (e.g., 'CONNEXION').
+     * @param string $table Table or module affected.
+     * @param bool $success Whether the action succeeded.
+     * @param string $details Optional details about the action.
      */
     public function write(string $action, string $table, bool $success, string $details = ''): void
     {

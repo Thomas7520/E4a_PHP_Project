@@ -44,6 +44,6 @@ $loader->addNamespace('Exceptions', __DIR__ . '/Exceptions');
 $router = new Router("action");
 $router->routing($_GET, $_POST);
 
-// Pour ajouter des loggins dans la bdd
+// To add account in database
 
-// \Services\AuthService::register("thomas", "test");
+ //\Services\AuthService::register("thomas", "test");

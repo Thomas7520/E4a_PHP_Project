@@ -5,10 +5,18 @@ namespace Exceptions;
 use Controllers\MainController;
 use Routes\Route;
 
+/**
+ * Route used when a requested action is not found (404 fallback).
+ */
 class RouteNotFoundException extends Route
 {
     private MainController $controller;
 
+    /**
+     * Constructor.
+     *
+     * @param MainController $controller Main controller to render the not-found page.
+     */
     public function __construct(MainController $controller)
     {
         parent::__construct('not-found');
@@ -16,7 +24,9 @@ class RouteNotFoundException extends Route
     }
 
     /**
-     * Gère la requête GET
+     * Handle GET request by displaying the not-found page.
+     *
+     * @param array $params Optional GET parameters.
      */
     public function get(array $params = []): void
     {
@@ -24,8 +34,10 @@ class RouteNotFoundException extends Route
     }
 
     /**
-     * Gère la requête POST
-     * Pour l'instant, on fait pareil que GET
+     * Handle POST request.
+     * Currently does nothing
+     *
+     * @param array $params Optional POST parameters.
      */
     public function post(array $params = []): void
     {

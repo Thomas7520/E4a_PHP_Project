@@ -1,5 +1,7 @@
 <?php $this->layout('template', ['title' => $title]) ?>
 
+<div class="form-container">
+
 <h1>Ajouter un paramètre</h1>
 
 <form method="POST" action="./index.php?action=add-parameter">
@@ -13,3 +15,5 @@
 
     <button type="submit">OK</button>
 </form>
+
+</div>

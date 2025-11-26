@@ -2,12 +2,22 @@
 
 namespace Models\Parameter\UnitClass;
 
+/**
+ * Represents a UnitClass parameter in the system.
+ */
 class UnitClass
 {
     private ?string $id;
     private string $name;
     private string $urlImg;
 
+    /**
+     * Constructor.
+     *
+     * @param string|null $id Optional unit class ID.
+     * @param string $name Unit class name.
+     * @param string $imgUrl Optional URL of the unit class image.
+     */
     public function __construct(?string $id = null, string $name = '', string $imgUrl = '')
     {
         $this->id = $id;
@@ -23,6 +33,9 @@ class UnitClass
     public function setName(string $name): void { $this->name = $name; }
     public function setUrlImg(string $urlImg): void { $this->urlImg = $urlImg; }
 
+    /**
+     * Return a string representation of the unit class.
+     */
     public function __toString(): string
     {
         return sprintf("%s [%s]", $this->name, $this->id ?? 'new');

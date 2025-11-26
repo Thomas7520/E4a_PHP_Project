@@ -7,32 +7,41 @@ use Models\Logger;
 use Services\AuthService;
 use function Helpers\toast;
 
+/**
+ * Controller to handle user login and logout operations.
+ */
 class LoginController
 {
     private Engine $templates;
     private Logger $logger;
     private MainController $mainController;
 
+    /**
+     * Constructor.
+     *
+     * @param MainController $mainController Main controller for redirections.
+     */
     public function __construct(MainController $mainController)
     {
         $this->mainController = $mainController;
         $this->logger = new Logger();
         $this->templates = new Engine(__DIR__ . '/../Views');
-
     }
 
     /**
-     * Page de connexion (GET)
+     * Display the login form (GET request).
      */
     public function loginForm(): void
     {
         echo $this->templates->render('login', [
-            'title' => 'Connexion'
+            'title' => 'Login'
         ]);
     }
 
     /**
-     * Traitement du formulaire de connexion (POST)
+     * Process the login form (POST request).
+     *
+     * @param array $post Form data containing 'username' and 'password'.
      */
     public function loginProcess(array $post): void
     {
@@ -40,33 +49,30 @@ class LoginController
         $password = trim($post['password'] ?? '');
 
         if ($username === '' || $password === '') {
-            toast("Veuillez entrer un identifiant et un mot de passe.", "error");
+            toast("Please enter a username and password.", "error");
             $this->mainController->login();
             exit;
         }
 
         if (AuthService::login($username, $password)) {
-            $this->logger->log('CONNEXION', 'LOGIN', true, "Connexion : $username");
-
-            $this->mainController->index("Connexion réussie !");
+            $this->logger->log('CONNEXION', 'LOGIN', true, "Login successful: $username");
+            $this->mainController->index("Login successful!");
             exit;
         }
 
-        $this->logger->log('CONNEXION', 'LOGIN', false, "Failed Connexion : $username");
-        toast("Identifiants incorrects.", "error");
-
+        $this->logger->log('CONNEXION', 'LOGIN', false, "Failed login attempt: $username");
+        toast("Incorrect credentials.", "error");
         $this->mainController->login();
         exit;
     }
 
     /**
-     * Déconnexion (GET)
+     * Log out the current user (GET request).
      */
     public function logout(): void
     {
         AuthService::logout();
-
-        $this->mainController->index("Vous êtes déconnecté");
+        $this->mainController->index("You have been logged out.");
         exit;
     }
 }

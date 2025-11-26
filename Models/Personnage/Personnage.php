@@ -2,16 +2,30 @@
 
 namespace Models\Personnage;
 
+/**
+ * Represents a character (Personnage) in the system.
+ */
 class Personnage
 {
     private ?string $id;
     private string $name;
-    private int $element;       // ID de ELEMENT
-    private int $unitclass;     // ID de UNITCLASS
-    private ?int $origin;       // ID de ORIGIN
+    private int $element;       // ID of ELEMENT
+    private int $unitclass;     // ID of UNITCLASS
+    private ?int $origin;       // ID of ORIGIN
     private int $rarity;
     private string $urlImg;
 
+    /**
+     * Constructor.
+     *
+     * @param string|null $id Optional character ID.
+     * @param string $name Character name.
+     * @param int $element ID of the associated element.
+     * @param int $unitclass ID of the associated unit class.
+     * @param int|null $origin Optional ID of the associated origin.
+     * @param int $rarity Character rarity (default 1).
+     * @param string $urlImg Optional URL for the character image.
+     */
     public function __construct(
         ?string $id = null,
         string $name = '',
@@ -46,10 +60,13 @@ class Personnage
     public function setRarity(int $rarity): void { $this->rarity = $rarity; }
     public function setUrlImg(string $urlImg): void { $this->urlImg = $urlImg; }
 
+    /**
+     * Return a string representation of the character.
+     */
     public function __toString(): string
     {
         return sprintf(
-            "%s (Element ID: %d) - Rarity: %d [%d]",
+            "%s (Element ID: %d) - Rarity: %d [UnitClass ID: %d]",
             $this->name,
             $this->element,
             $this->rarity,

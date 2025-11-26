@@ -4,10 +4,18 @@ namespace Routes;
 
 use Controllers\MainController;
 
+/**
+ * Route class for the main index page.
+ */
 class RouteIndex extends Route
 {
     private MainController $controller;
 
+    /**
+     * Constructor.
+     *
+     * @param MainController $controller Controller responsible for handling the main page.
+     */
     public function __construct(MainController $controller)
     {
         parent::__construct('index');
@@ -15,7 +23,11 @@ class RouteIndex extends Route
     }
 
     /**
-     * Gère la requête GET
+     * Handle GET requests.
+     *
+     * Displays the main index page.
+     *
+     * @param array $params Optional route parameters.
      */
     public function get(array $params = []): void
     {
@@ -23,8 +35,11 @@ class RouteIndex extends Route
     }
 
     /**
-     * Gère la requête POST
-     * Pour l'instant, on fait pareil que GET
+     * Handle POST requests.
+     *
+     * Currently behaves the same as GET, displaying the main index page.
+     *
+     * @param array $params Optional route parameters.
      */
     public function post(array $params = []): void
     {

@@ -58,11 +58,11 @@
 .toast-success::before {
     content: '✔';
     color: #2ecc71;
-    background: rgba(46, 204, 113, 0.1); /* Petit rond de fond derrière l'icone */
+    background: rgba(46, 204, 113, 0.1);
     width: 30px; height: 30px;
     display: flex; align-items: center; justify-content: center;
     border-radius: 50%;
-    left: 15px; /* Ajustement position */
+    left: 15px;
 }
 .toast-success::after {
     background-color: #2ecc71;
@@ -85,13 +85,10 @@
     background-color: #e74c3c;
 }
 
-/* ---------------- ANIMATIONS SYNCHRONISÉES ---------------- */
 
-/* ---------------- ANIMATIONS CORRIGÉES ---------------- */
 
 /* Mouvement du toast */
 @keyframes slideInLeftFadeOut {
-    /* PHASE 1 : ENTRÉE (0% à 10%) */
     0% {
         opacity: 0;
         transform: translateX(100%);
@@ -101,15 +98,11 @@
         transform: translateX(0);
     }
 
-    /* PHASE 2 : LECTURE (10% à 90%)
-       Notez qu'on attend jusqu'à 90% avant de bouger,
-       alors que la barre finit à 80% (voir plus bas) */
     90% {
         opacity: 1;
         transform: translateX(0);
     }
 
-    /* PHASE 3 : SORTIE (90% à 100%) */
     100% {
         opacity: 0;
         transform: translateX(100%);
@@ -117,9 +110,7 @@
     }
 }
 
-/* Mouvement de la barre de temps */
 @keyframes progressBar {
-    /* PHASE 1 : ENTRÉE (Barre pleine) */
     0% {
         width: 100%;
     }
@@ -127,14 +118,10 @@
         width: 100%;
     }
 
-    /* PHASE 2 : VIDAGE (10% à 80%)
-       La barre arrive à 0% PLUS TÔT que le départ du toast.
-       Cela laisse 10% du temps (0.5s) avec une barre vide visible. */
     80% {
         width: 0%;
     }
 
-    /* PHASE 3 : RESTE VIDE JUSQU'A LA FIN */
     100% {
         width: 0%;
     }

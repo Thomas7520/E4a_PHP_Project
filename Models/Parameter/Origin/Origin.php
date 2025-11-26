@@ -2,12 +2,22 @@
 
 namespace Models\Parameter\Origin;
 
+/**
+ * Represents an Origin parameter in the system.
+ */
 class Origin
 {
     private ?string $id;
     private string $name;
     private string $urlImg;
 
+    /**
+     * Constructor.
+     *
+     * @param string|null $id Optional origin ID.
+     * @param string $name Origin name.
+     * @param string $imgUrl Optional URL of the origin image.
+     */
     public function __construct(?string $id = null, string $name = '', string $imgUrl = '')
     {
         $this->id = $id;
@@ -23,6 +33,9 @@ class Origin
     public function setName(string $name): void { $this->name = $name; }
     public function setUrlImg(string $urlImg): void { $this->urlImg = $urlImg; }
 
+    /**
+     * Return a string representation of the origin.
+     */
     public function __toString(): string
     {
         return sprintf("%s [%s]", $this->name, $this->id ?? 'new');

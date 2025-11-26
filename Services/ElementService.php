@@ -2,22 +2,32 @@
 
 namespace Services;
 
-
-
 use Models\Parameter\Element\Element;
 use Models\Parameter\Element\ElementDAO;
 
+/**
+ * Service layer for Element entities.
+ * Provides hydration and DAO access.
+ */
 class ElementService
 {
     private ElementDAO $dao;
 
+    /**
+     * Constructor.
+     *
+     * @param \Models\Logger $logger Logger instance for DAO operations.
+     */
     public function __construct($logger)
     {
         $this->dao = new ElementDAO($logger);
     }
 
     /**
-     * Transforme un tableau de données brutes en instance d'Element
+     * Converts a raw data array into an Element instance.
+     *
+     * @param array $data Raw data (associative array from DB).
+     * @return Element Hydrated Element object.
      */
     public static function hydrate(array $data): Element
     {
@@ -34,10 +44,10 @@ class ElementService
     }
 
     /**
-     * Transforme plusieurs lignes SQL en tableau d'objets Element
+     * Converts multiple raw rows into an array of Element objects.
      *
-     * @param array $rows
-     * @return Element[]
+     * @param array $rows Array of associative arrays (DB rows).
+     * @return Element[] Array of hydrated Element objects.
      */
     public static function hydrateAll(array $rows): array
     {
@@ -48,11 +58,21 @@ class ElementService
         return $result;
     }
 
+    /**
+     * Get the DAO associated with this service.
+     *
+     * @return ElementDAO
+     */
     public function getDao(): ElementDAO
     {
         return $this->dao;
     }
 
+    /**
+     * Returns the fully qualified class name of the entity.
+     *
+     * @return string
+     */
     public function getEntityClass(): string
     {
         return Element::class;

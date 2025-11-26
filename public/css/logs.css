@@ -26,7 +26,6 @@
     animation: slideUp 0.4s ease-out;
 }
 
-/* En-tête avec Titre et Select */
 .logs-header {
     background: #f8fafc;
     padding: 25px 30px;
@@ -109,7 +108,6 @@
     background: #94a3b8;
 }
 
-/* Entrée individuelle de log */
 .log-entry {
     padding: 12px 16px;
     border-radius: 8px;
@@ -127,7 +125,6 @@
     font-family: 'Fira Code', 'Consolas', monospace;
 }
 
-/* Variantes de couleurs */
 .log-success {
     background-color: var(--bg-success);
     color: var(--text-success);
@@ -152,7 +149,6 @@
     border-left-color: var(--border-info);
 }
 
-/* État vide */
 .log-empty {
     text-align: center;
     padding: 40px;
@@ -160,13 +156,11 @@
     font-style: italic;
 }
 
-/* Animation d'apparition */
 @keyframes slideUp {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Responsive */
 @media (max-width: 600px) {
     .logs-header {
         flex-direction: column;

@@ -1,4 +1,3 @@
-/* Container centré avec tous les éléments alignés au centre */
 .form-container {
     max-width: 520px;
     margin: 30px auto;
@@ -31,6 +30,7 @@ form label {
 
 form input[type="text"],
 form input[type="number"],
+form input[type="password"],
 form select {
     width: 90%;
     padding: 11px 12px;
@@ -41,7 +41,7 @@ form select {
     color: #2c3e50;
     text-align: center;
     transition: border 0.25s ease, box-shadow 0.25s ease, background 0.2s ease;
-    appearance: none; /* supprime l’apparence native du select */
+    appearance: none;
 }
 
 form input:focus,
@@ -78,13 +78,11 @@ form button:active {
     transform: translateY(0);
 }
 
-/* Animation du container */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Responsive */
 @media (max-width: 600px) {
     .form-container {
         padding: 22px;
