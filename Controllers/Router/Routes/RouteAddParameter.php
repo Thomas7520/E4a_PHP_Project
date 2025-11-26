@@ -4,7 +4,7 @@ namespace Routes;
 
 use Controllers\ParameterController;
 
-class RouteAddParameter extends Route
+class RouteAddParameter extends ProtectedRoute
 {
     private ParameterController $controller;
 

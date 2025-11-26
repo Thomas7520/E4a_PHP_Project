@@ -6,6 +6,8 @@ use Helpers\Psr4AutoloaderClass;
 require_once __DIR__ . '/Helpers/Psr4AutoloaderClass.php';
 require_once __DIR__ . '/Helpers/Toast.php';
 
+session_start();
+
 $loader = new Psr4AutoloaderClass();
 $loader->register();
 
@@ -25,6 +27,7 @@ $loader->addNamespace('Routes\Personnage', __DIR__ . '/Controllers/Router/Routes
 $loader->addNamespace('Models', __DIR__ . '/Models');
 $loader->addNamespace('Models\Personnage', __DIR__ . '/Models/Personnage');
 $loader->addNamespace('Models\Parameter', __DIR__ . '/Models/Parameter');
+$loader->addNamespace('Models\User', __DIR__ . '/Models/User');
 
 $loader->addNamespace('Models\Parameter\Element', __DIR__ . '/Models/Parameter/Element');
 $loader->addNamespace('Models\Parameter\Origin', __DIR__ . '/Models/Parameter/Origin');
@@ -40,3 +43,7 @@ $loader->addNamespace('Exceptions', __DIR__ . '/Exceptions');
 // Lancer le router
 $router = new Router("action");
 $router->routing($_GET, $_POST);
+
+// Pour ajouter des loggins dans la bdd
+
+// \Services\AuthService::register("thomas", "test");

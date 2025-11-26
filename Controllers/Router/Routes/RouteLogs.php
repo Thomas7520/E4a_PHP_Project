@@ -4,7 +4,7 @@ namespace Routes;
 
 use Controllers\LogsController;
 
-class RouteLogs extends Route
+class RouteLogs extends ProtectedRoute
 {
     private LogsController $controller;
 

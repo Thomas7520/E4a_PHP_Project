@@ -2,6 +2,7 @@
 
 namespace Controllers\Router;
 
+use Controllers\LoginController;
 use Controllers\LogsController;
 use Controllers\MainController;
 use Controllers\PersonnageController;
@@ -9,9 +10,11 @@ use Controllers\ParameterController;
 use Exceptions\RouteNotFoundException;
 
 // Routes génériques
+use Routes\IRouteSecurity;
 use Routes\RouteDelParameter;
 use Routes\RouteIndex;
 use Routes\RouteLogin;
+use Routes\RouteLogout;
 use Routes\RouteLogs;
 
 // Routes Personnage
@@ -26,6 +29,7 @@ use Routes\RouteAddParameter;
 
 // Routes Element / Origin / UnitClass deletion
 use Routes\RouteDelElement;
+use function Helpers\toast;
 
 class Router
 {
@@ -49,14 +53,17 @@ class Router
             'perso'     => new PersonnageController($mainCtrl),
             'parameter' => new ParameterController($mainCtrl), // utilisé pour toutes les routes add-xxx
             'logs' => new LogsController($mainCtrl),
+            'login' => new LoginController($mainCtrl),
         ];
     }
 
     private function createRouteList(): void
     {
         $this->routeList = [
+
             'index'          => new RouteIndex($this->ctrlList['main']),
-            'login'          => new RouteLogin($this->ctrlList['main']),
+            'login'          => new RouteLogin($this->ctrlList['login']),
+            'logout'          => new RouteLogout($this->ctrlList['login']),
             'logs'           => new RouteLogs($this->ctrlList['logs']),
 
             // Routes Personnage
@@ -83,8 +90,20 @@ class Router
         $action = $get[$this->action_key] ?? 'index';
         $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 
+
         try {
             $route = $this->routeList[$action] ?? $this->routeList["not-found"];
+
+            if ($route instanceof IRouteSecurity) {
+                try {
+                    $route->protectRoute();
+                } catch (\Exception $e) {
+                    if ($e->getMessage() === "NOT_LOGGED") {
+                        $route = $this->routeList["login"];
+                        toast("Vous n'avez pas accès à cette page.", "error");
+                    }
+                }
+            }
 
             if ($method === 'POST' && !empty($post)) {
                 $route->action($post, 'POST');

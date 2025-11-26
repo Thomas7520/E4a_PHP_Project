@@ -3,9 +3,10 @@
 namespace Routes\Parameter;
 
 use Controllers\ParameterController;
+use Routes\ProtectedRoute;
 use Routes\Route;
 
-class RouteAddOrigin extends Route
+class RouteAddOrigin extends ProtectedRoute
 {
     private ParameterController $controller;
 
@@ -17,8 +18,7 @@ class RouteAddOrigin extends Route
 
     public function get(array $params = []): void
     {
-        //$id = $params['id'] ?? null;
-        //$this->controller->displayAddParameterForm('origin', $id);
+
     }
 
     public function post(array $params = []): void

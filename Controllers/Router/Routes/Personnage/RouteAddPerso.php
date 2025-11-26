@@ -3,9 +3,10 @@
 namespace Routes\Personnage;
 
 use Controllers\PersonnageController;
+use Routes\ProtectedRoute;
 use Routes\Route;
 
-class RouteAddPerso extends Route
+class RouteAddPerso extends ProtectedRoute
 {
     private PersonnageController $controller;
 

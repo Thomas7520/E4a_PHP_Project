@@ -3,9 +3,10 @@
 namespace Routes\Personnage;
 
 use Controllers\PersonnageController;
+use Routes\ProtectedRoute;
 use Routes\Route;
 
-class RouteDelPerso extends Route
+class RouteDelPerso extends ProtectedRoute
 {
     private PersonnageController $controller;
 
@@ -19,15 +20,13 @@ class RouteDelPerso extends Route
     {
         $id = $this->getParam($params, 'id');
 
-        // supprimer le personnage via le service
         $this->controller->deletePerso($id);
-
 
     }
 
     public function post(array $params = []): void
     {
-        // Pas besoin ici
+
     }
 
 }
